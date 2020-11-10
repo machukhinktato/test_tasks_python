@@ -18,7 +18,7 @@ def num_converter(num, dest_base):
                f'системы счисления указывайте как: hex, dec, ter, bin, int, cats'
 
 
-def ter(num):
+def tern_num(num):
     """конвертер троичной системы"""
     quotient = num / 3
     remainder = num % 3
@@ -28,7 +28,12 @@ def ter(num):
         return ter(int(quotient)) + str(int(remainder))
 
 
-def main(nb,base_src,base_dst):
+def ter(num):
+    """ Конвертер троичной системы с реализацией отрицательной степени"""
+    return tern_num(num) if num > 0 else f'-{tern_num(num)}'
+
+
+def main(nb, base_src, base_dst):
     """ """
     # nb = input('Введите число: ')
     # base_src = input('начальная система счисления числа: ')
@@ -51,5 +56,6 @@ def main(nb,base_src,base_dst):
         # if 'cats' in base_src
         print(e)
 
+
 if __name__ == '__main__':
-    main('15', 'int', 'cats')
+    main('-15', 'int', 'ter')
