@@ -1,19 +1,20 @@
 def num_converter(num, dest_base, dest_src=None):
-    # num = int(input('Please, enter a number(here may be any format): '))
-    # src_base = input('Convert to? (hex, bin, dec, cats)')
+
 
     values = {
-        'hex': hex,
-        'oct': oct,
-        'ter': ter,
-        'bin': bin,
+        'hex': hex(num).replace('0x', ''),
+        'oct': oct(num).replace('0o', ''),
+        'ter': ter(num),
+        'bin': bin(num).replace('0b', ''),
         'int': int,
-        'cats': 'meow',
+        'cats': 'meow'.replace('o', 'o' * num),
     }
-    result = f"{(values.get(dest_base)).replace('o', 'o' * int(num))}" if \
-        dest_base == 'cats' else values.get(dest_base)(num)
+    # result = f"{(values.get(dest_base)).replace('o', 'o' * int(num))}" if \
+    #     dest_base == 'cats' else values.get(dest_base)(num)
 
-    return print(result, '\n')
+
+    # return print(result, end='\n')
+    return print(values.get(dest_base))
 
 
 
@@ -32,4 +33,4 @@ def ter(num):
 
 
 if __name__ == '__main__':
-    num_converter(15, 'oct')
+    num_converter(15, 'cats')
