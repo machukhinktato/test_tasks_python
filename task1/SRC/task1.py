@@ -33,12 +33,23 @@ def main(nb,base_src,base_dst):
     # nb = input('Введите число: ')
     # base_src = input('начальная система счисления числа: ')
     # base_dst = input('конечная система счисления числа: ')
-    try:
-        nb = int(nb, int(base_src))
+    values = {
+        'hex': 16,
+        'int': 10,
+        'oct': 8,
+        'ter': 3,
+        'bin': 2,
+        'cats': 'meow',
+    }
+    if 'cats' in base_src:
+        nb, base_src = nb.count('o'), None
         return print(num_converter(nb, base_dst))
-    except:
-        print('no')
-
+    try:
+        nb = int(nb, values.get(base_src))
+        return print(num_converter(nb, base_dst))
+    except Exception as e:
+        # if 'cats' in base_src
+        print(e)
 
 if __name__ == '__main__':
-    main('0xf', 16, 'int')
+    main('15', 'int', 'cats')
