@@ -14,8 +14,8 @@ def num_converter(num, dest_base):
         return values.get(dest_base)
     else:
         return f'Система счисления `{dest_base}` и/или число `{num}` указаны некорректно \n' \
-          f'для корректоной работы функции используйте числа с положительными значениями\n' \
-          f'системы счисления указывайте как: hex, dec, ter, bin, int, cats'
+               f'для корректоной работы функции используйте числа с положительными значениями\n' \
+               f'системы счисления указывайте как: hex, dec, ter, bin, int, cats'
 
 
 def ter(num):
@@ -28,10 +28,17 @@ def ter(num):
         return ter(int(quotient)) + str(int(remainder))
 
 
-def main(nb, base_src='int', base_dst='hex'):
-    """работает с двумя аргументами, третий используется для соответсвия ТЗ"""
-    return print(num_converter(nb, base_dst))
+def main(nb,base_src,base_dst):
+    """ """
+    # nb = input('Введите число: ')
+    # base_src = input('начальная система счисления числа: ')
+    # base_dst = input('конечная система счисления числа: ')
+    try:
+        nb = int(nb, int(base_src))
+        return print(num_converter(nb, base_dst))
+    except:
+        print('no')
 
 
 if __name__ == '__main__':
-    main(10, 'int', 'hen')
+    main('0xf', 16, 'int')
