@@ -1,5 +1,6 @@
 def num_converter(num, dest_base):
     """общий конвертер систем счисления"""
+
     values = {
         'hex': hex(num).replace('0x', ''),
         'oct': oct(num).replace('0o', ''),
@@ -9,7 +10,12 @@ def num_converter(num, dest_base):
         'cats': 'meow'.replace('o', 'o' * num),
     }
 
-    return values.get(dest_base)
+    if dest_base in values.keys():
+        return values.get(dest_base)
+    else:
+        return f'Система счисления `{dest_base}` и/или число `{num}` указаны некорректно \n' \
+          f'для корректоной работы функции используйте числа с положительными значениями\n' \
+          f'системы счисления указывайте как: hex, dec, ter, bin, int, cats'
 
 
 def ter(num):
@@ -28,5 +34,4 @@ def main(nb, base_src='int', base_dst='hex'):
 
 
 if __name__ == '__main__':
-    num_converter(0xf, 'int')
-    main()
+    main(10, 'int', 'hen')
