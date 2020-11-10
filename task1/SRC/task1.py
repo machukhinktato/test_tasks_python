@@ -1,6 +1,4 @@
-def num_converter(num, dest_base, dest_src=None):
-
-
+def num_converter(num, dest_base):
     values = {
         'hex': hex(num).replace('0x', ''),
         'oct': oct(num).replace('0o', ''),
@@ -9,28 +7,24 @@ def num_converter(num, dest_base, dest_src=None):
         'int': int,
         'cats': 'meow'.replace('o', 'o' * num),
     }
-    # result = f"{(values.get(dest_base)).replace('o', 'o' * int(num))}" if \
-    #     dest_base == 'cats' else values.get(dest_base)(num)
 
-
-    # return print(result, end='\n')
-    return print(values.get(dest_base))
-
+    return values.get(dest_base)
 
 
 def ter(num):
     """ternary numeral system converter"""
-    quotient = num/3
-    remainder = num%3
+    quotient = num / 3
+    remainder = num % 3
     if quotient == 0:
         return ""
     else:
         return ter(int(quotient)) + str(int(remainder))
 
 
-# number = int(input("Enter a number : ")) #1
-# print(ter(123))
+def main():
+    return print(num_converter(15, 'cats'))
 
 
 if __name__ == '__main__':
     num_converter(15, 'cats')
+    main()
