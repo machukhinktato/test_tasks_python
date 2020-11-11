@@ -7,7 +7,8 @@ def num_converter(num, dest_base):
         'ter': ter(num),
         'bin': bin(num).replace('0b', ''),
         'int': int(num),
-        'cats': 'meow'.replace('o', 'o' * num),
+        # 'cats': 'meow'.replace('o', 'o' * num),
+        'cats': '(^o_o^)~ ' * (num),
     }
 
     if dest_base in values.keys():
@@ -25,37 +26,54 @@ def tern_num(num):
     if quotient == 0:
         return ""
     else:
-        return ter(int(quotient)) + str(int(remainder))
+        return tern_num(int(quotient)) + str(int(remainder))
 
 
 def ter(num):
     """ Конвертер троичной системы с реализацией отрицательной степени"""
-    return tern_num(num) if num > 0 else f'-{tern_num(num)}'
+    a = tern_num(num) if num > 0 else f'-{tern_num(num)}'
+    return int(a)
 
 
-def main(nb, base_src, base_dst):
-    """ """
-    # nb = input('Введите число: ')
-    # base_src = input('начальная система счисления числа: ')
-    # base_dst = input('конечная система счисления числа: ')
+# def main(nb, base_src, base_dst):
+def main():
+    """
+    Основная функция вызова программы, принимает число, базовую и конечную
+    систему счисления
+    """
+    nb = input('Введите число: ')
+    base_src = input('начальная система счисления: ')
+    base_dst = input('конечная система счисления: ')
     values = {
         'hex': 16,
-        'int': 10,
+        'dec': 10,
         'oct': 8,
         'ter': 3,
         'bin': 2,
-        'cats': 'meow',
+        # 'cats': 'o(^_^)o~ ',
     }
     if 'cats' in base_src:
-        nb, base_src = nb.count('o'), None
-        return print(num_converter(nb, base_dst))
+        try:
+            nb, base_src = nb.count('~'), None
+            return print(num_converter(nb, base_dst))
+        except:
+            return usage()
     try:
         nb = int(nb, values.get(base_src))
         return print(num_converter(nb, base_dst))
-    except Exception as e:
-        # if 'cats' in base_src
-        print(e)
+    except:
+        return usage()
+
+
+def usage():
+    return print(f'Система счисления и/или число указаны некорректно\n'
+                 f'для корректоной работы программы используйте целые числа или\n'
+                 f'их аналогии в необходимой системе счисления(указаны ниже), а\n'
+                 f'систему счисления указывайте как: \n'
+                 f'bin - двоичная, ter - троичная, oct - восьмеричная,\n'
+                 f'dec - десятичная, hex - шестнадцеричная, cats - в котиках')
 
 
 if __name__ == '__main__':
-    main('-15', 'int', 'ter')
+    # main('111011101110', 'bin', 'hex')
+    main()
