@@ -12,10 +12,21 @@ def sphere_theme():
         'z': [(z - task_dict.get('sphere').get('radius')),
               (z + task_dict.get('sphere').get('radius'))],
     }
+    sphere_x = list(((x - task_dict.get('sphere').get('radius'),
+               (x + task_dict.get('sphere').get('radius')))))
+    sphere_y = list(((y - task_dict.get('sphere').get('radius'),
+               (y + task_dict.get('sphere').get('radius')))))
+    sphere_z = list(((z - task_dict.get('sphere').get('radius'),
+               (z + task_dict.get('sphere').get('radius')))))
     # x, y, z = [[i for i in range(-10, 10)] for i in range(3)]
 
+    line_x = list(((task_dict.get('line')[0][0]),(task_dict.get('line')[1][0])))
+    line_y = list(((task_dict.get('line')[0][1]),(task_dict.get('line')[1][1])))
+    line_z = list(((task_dict.get('line')[0][2]),(task_dict.get('line')[1][2])))
+
     # return print(task_dict.get('line')[1][1])
-    return print(sphere_points.values())
+    # return print(sphere_x, sphere_y, sphere_z)
+    return print(line_x, line_y, line_z)
 
 if __name__ == '__main__':
     sphere_theme()
