@@ -61,13 +61,13 @@ def comparison(line, sphere):
     # print(f'{i} {line.get("sections").get(i)}')
         if line.get('sections').get(i)[0] >= sphere[x][0] and\
                 line.get('sections').get(i)[0] <= sphere[x][1]:
-            line.get('sections').get(i).append('inside_1')
+            line.get('sections').get(i).append(True)
         else:
             line.get('sections').get(i).append(None)
         if line.get('sections').get(i)[1] >= sphere[x][0] and\
                 line.get('sections').get(i)[1] <= sphere[x][1]:
 
-            line.get('sections').get(i).append('inside_2')
+            line.get('sections').get(i).append(True)
         else:
             line.get('sections').get(i).append(None)
         x += 1
@@ -75,8 +75,12 @@ def comparison(line, sphere):
             # inside.append(line[i])
         # else:
         #     outside.append(line[i])
-    # print(line.get('x'))
-    return print(line.get('sections').values())
+    section = line.get('sections')
+    for key in line.get('sections'):
+    # section.get
+        print(key)
+    return print('ok')
+    # return print([line.get('sections').get('x')[3] if line.get('sections').get('x')[3] == True else line.get('sections').get('x')[2]])
 
         # if line[i][1] >= sphere[i][0] and line[i][1] <= sphere[i][1]:
         #     inside.append(line[i][1])
