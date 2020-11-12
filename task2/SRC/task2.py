@@ -1,8 +1,11 @@
+from pprint import pprint
+
+
 def sphere_theme():
     task_dict = {
         'sphere': {'center': [0, 0, 0], 'radius': 10.67, },
         'line': [[1, 0.5, 15], [43, -14.6, 0.04]]
-        # 'line': [[15, -14, 15], [43, -14.6, 0.04]]
+        # 'line': [[0, 0, 0], [0, 0, 0]]
     }
     sphere_coords, line_coords = [], []
     for i in range(3):
@@ -117,7 +120,6 @@ def cross_finder(sections, sphere):
     x = 0
     sections = sections.get('sections')
     crosspoints = dict()
-    answer = set()
     for key in sections.keys():
         # try:
         #     print(sphere[x][x] in range(int(sphere[x][0]), int(sphere[x][1])))
@@ -141,13 +143,13 @@ def cross_finder(sections, sphere):
                 crosspoints[key + '_2'] = sphere[x][0]
             else:
                 crosspoints[key + '_2'] = sphere[x][1]
-        # answer
-        x += 1
-        # sections[key][2] = 'banana'
-    return sections, crosspoints
-        # return sections[key][0] > sections[key][1]
-        #     return float(sections['y'][1]) < sphere[x][0]
-
+    cords = ['x_1','y_1','z_1','x_2','y_2','z_2']
+    for i in cords:
+        if i in crosspoints:
+            return crosspoints
+        else:
+            return 'Коллизий не найдено'
+            # return crosspoints
 
 if __name__ == '__main__':
     sphere_theme()
