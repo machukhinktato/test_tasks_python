@@ -1,8 +1,8 @@
 def sphere_theme():
     task_dict = {
         'sphere': {'center': [0, 0, 0], 'radius': 10.67, },
-        # 'line': [[1, 0.5, 15], [43, -14.6, 0.04]]
-        'line': [[15, -14, 15], [43, -14.6, 0.04]]
+        'line': [[1, 0.5, 15], [43, -14.6, 0.04]]
+        # 'line': [[15, -14, 15], [43, -14.6, 0.04]]
     }
     sphere_coords, line_coords = [], []
     for i in range(3):
@@ -65,34 +65,28 @@ def comparison(line, sphere):
         x += 1
     # return 'done', section
 
+    # if section.get(i)[0] >= sphere[x][0] and section.get(i)[0] <= sphere[x][1]:
+    #     section.get(i).append(True)
+    #     if section.get(i)[1] >= sphere[x][0] and section.get(i)[1] <= sphere[x][1]:
+    # else:
+    #     section.get(i).append(None)
+    # if section.get(i)[1] >= sphere[x][0] and \
+    #         section.get(i)[1] <= sphere[x][1]:
+    #     section.get(i).append(None)
+    # else:
+    #     section.get(i).append(None)
 
-        # if section.get(i)[0] >= sphere[x][0] and section.get(i)[0] <= sphere[x][1]:
-        #     section.get(i).append(True)
-        #     if section.get(i)[1] >= sphere[x][0] and section.get(i)[1] <= sphere[x][1]:
-        # else:
-        #     section.get(i).append(None)
-        # if section.get(i)[1] >= sphere[x][0] and \
-        #         section.get(i)[1] <= sphere[x][1]:
-        #     section.get(i).append(None)
-        # else:
-        #     section.get(i).append(None)
-
-
-        # inside.append(line[i])
-        # else:
-        #     outside.append(line[i])
+    # inside.append(line[i])
+    # else:
+    #     outside.append(line[i])
     # section = line.get('sections')
     # for key in line.get('sections'):
     # section.get
     #     print(key)
 
-
     bah = cross_finder(line, sphere)
 
     return bah
-
-
-
 
     # return print([line.get('sections').get('x')[3] if line.get('sections').get('x')[3] == True else line.get('sections').get('x')[2]])
 
@@ -123,25 +117,36 @@ def cross_finder(sections, sphere):
     x = 0
     sections = sections.get('sections')
     crosspoints = dict()
-
+    answer = set()
     for key in sections.keys():
         # try:
         #     print(sphere[x][x] in range(int(sphere[x][0]), int(sphere[x][1])))
         # except:
         #     copyright()
-        if sections[key][3] and sections[key][2] == True:
+        if sections[key][2] and sections[key][3] == True or \
+                float(sections[key][0]) < min(sphere[x]) and \
+                float(sections[key][1]) < min(sphere[x]) or \
+                float(sections[key][0]) > max(sphere[x]) and \
+                float(sections[key][1]) > max(sphere[x]):
             continue
         # if sections[key][3] and sections[key][2] == False:
         #     print(sections[key][0] and sections[key][1] < sphere[x][0])
-        if sections[key][2] == True:
-            crosspoints[key + '_2'] = sphere[0][1]
-        if sections[key][3] == True:
-            crosspoints[key + '_1'] = sphere[0][0]
+        elif sections[key][2] == True:
+            if sections[key][0] > sections[key][1]:
+                crosspoints[key + '_1'] = sphere[x][0]
+            else:
+                crosspoints[key + '_1'] = sphere[x][1]
+        elif sections[key][3] == True:
+            if sections[key][1] > sections[key][0]:
+                crosspoints[key + '_2'] = sphere[x][0]
+            else:
+                crosspoints[key + '_2'] = sphere[x][1]
+        # answer
+        x += 1
         # sections[key][2] = 'banana'
-    # return sections, crosspoints
-        return float(sections['y'][0]) < sphere[x][0] and float(sections['y'][1]) < sphere[x][0]
-    #     return float(sections['y'][1]) < sphere[x][0]
-        x+=1
+    return sections, crosspoints
+        # return sections[key][0] > sections[key][1]
+        #     return float(sections['y'][1]) < sphere[x][0]
 
 
 if __name__ == '__main__':
