@@ -75,11 +75,11 @@ def comparison(line, sphere):
             # inside.append(line[i])
         # else:
         #     outside.append(line[i])
-    section = line.get('sections')
-    for key in line.get('sections'):
+    # section = line.get('sections')
+    # for key in line.get('sections'):
     # section.get
-        print(key)
-    return print('ok')
+    #     print(key)
+    return cross_finder(line, sphere)
     # return print([line.get('sections').get('x')[3] if line.get('sections').get('x')[3] == True else line.get('sections').get('x')[2]])
 
         # if line[i][1] >= sphere[i][0] and line[i][1] <= sphere[i][1]:
@@ -108,7 +108,15 @@ def comparison(line, sphere):
 
 
 def cross_finder(sections, sphere):
-    return sections, sphere
+    sections = sections.get('sections')
+    crosspoints = dict()
+    for key in sections.keys():
+        if sections[key][2] == True:
+            crosspoints[key] = sphere[0][0]
+        if sections[key][3] == True:
+            crosspoints[key] = sphere[0][1]
+        # sections[key][2] = 'banana'
+    return crosspoints
 
 
 if __name__ == '__main__':
