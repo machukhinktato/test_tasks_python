@@ -1,13 +1,14 @@
 import json
 
 
-def file_loader(name):
+def file_loader(name='ok.txt'):
     """Загружает json файл с данынми"""
     with open(name) as f:
         try:
             file = json.load(f)
         except:
             file = f.readlines()
+        f.close()
     return file
 
 
@@ -34,8 +35,14 @@ def sphere_theme():
         'y': line_coords[1],
         'z': line_coords[2],
     }}
-
-    return print(comparison(line, sphere_coords))
+    result = comparison(line, sphere_coords)
+    try:
+        for key in result.keys():
+            # ok.append(f"{key} = {result.get(key)}")
+            print(f"{key} : {result.get(key)}")
+        return ''
+    except:
+        return print('Коллизий не найдено')
 
 
 def comparison(line, sphere):
@@ -70,6 +77,7 @@ def cross_finder(sections, sphere):
             continue
         elif sections[key][2] == True:
             if sections[key][0] > sections[key][1]:
+                # Номера присватваются в зависимот от элемента вхождения
                 crosspoints[key + '_1'] = sphere[x][0]
             else:
                 crosspoints[key + '_1'] = sphere[x][1]
@@ -78,13 +86,13 @@ def cross_finder(sections, sphere):
                 crosspoints[key + '_2'] = sphere[x][0]
             else:
                 crosspoints[key + '_2'] = sphere[x][1]
+
     cords = ['x_1', 'y_1', 'z_1', 'x_2', 'y_2', 'z_2']
-    for i in cords:
-        if i in crosspoints:
+    for point in cords:
+        if point in crosspoints:
             return crosspoints
-        else:
-            return 'Коллизий не найдено'
 
 
 if __name__ == '__main__':
     sphere_theme()
+    # file_loader()
