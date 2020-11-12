@@ -1,7 +1,7 @@
 def sphere_theme():
     task_dict = {
         'sphere': {'center': [0, 0, 0], 'radius': 10.67, },
-        'line': [[1, 0.5, 15], [43, -14.6, 0.04]]
+        'line': [[1, 0.5, 15], [7, -14.6, 0.04]]
         # 'line': [[15, 0.5, 15], [43, -14.6, 0.04]]
     }
     sphere_coords, line_coords = [], []
@@ -16,8 +16,8 @@ def sphere_theme():
         line_coords.append((
             [task_dict.get('line')[0][i], task_dict.get('line')[1][i]]
         ))
-        if line_coords[i][0] > line_coords[i][1]:
-            line_coords[i][0], line_coords[i][1] = line_coords[i][1], line_coords[i][0]
+        # if line_coords[i][0] > line_coords[i][1]:
+        #     line_coords[i][0], line_coords[i][1] = line_coords[i][1], line_coords[i][0]
 
     # print(line_coords)
     line = {'sections': {
@@ -28,8 +28,6 @@ def sphere_theme():
     # print(line.get('sections').values())
     # print(line.get('sections').get('x'))
     # print(line)
-
-
 
     # line_x = list(((task_dict.get('line')[0][0]),
     #                (task_dict.get('line')[1][0])))
@@ -43,6 +41,7 @@ def sphere_theme():
     # print(line_coords, sphere_coords)
     return print(comparison(line, sphere_coords))
 
+
 # def comparison(line, sphere):
 #     inside, outside = [], []
 #     for i in range(len(sphere)):
@@ -54,54 +53,67 @@ def sphere_theme():
 
 def comparison(line, sphere):
     x = 0
-    # for k in range(3):
-    for i in line.get('sections').keys():
-
-        print(x)
-    # print(f'{i} {line.get("sections").get(i)}')
-        if line.get('sections').get(i)[0] >= sphere[x][0] and\
-                line.get('sections').get(i)[0] <= sphere[x][1]:
-            line.get('sections').get(i).append(True)
-        else:
-            line.get('sections').get(i).append(None)
-        if line.get('sections').get(i)[1] >= sphere[x][0] and\
-                line.get('sections').get(i)[1] <= sphere[x][1]:
-
-            line.get('sections').get(i).append(True)
-        else:
-            line.get('sections').get(i).append(None)
+    section = line.get('sections')
+    for key in section.keys():
+        for i in range(2):
+            print(section[key][i])
+            #         if section[key][i] >= sphere[x][i] and section[key][i] <= sphere[x][i]:
+            if section[key][i] >= sphere[0][0] and section[key][i] <= sphere[x][1]:
+                section.get(key).append(True)
+            else:
+                section.get(key).append(None)
         x += 1
+    return 'done', section
 
-            # inside.append(line[i])
+
+        # if section.get(i)[0] >= sphere[x][0] and section.get(i)[0] <= sphere[x][1]:
+        #     section.get(i).append(True)
+        #     if section.get(i)[1] >= sphere[x][0] and section.get(i)[1] <= sphere[x][1]:
+        # else:
+        #     section.get(i).append(None)
+        # if section.get(i)[1] >= sphere[x][0] and \
+        #         section.get(i)[1] <= sphere[x][1]:
+        #     section.get(i).append(None)
+        # else:
+        #     section.get(i).append(None)
+
+
+        # inside.append(line[i])
         # else:
         #     outside.append(line[i])
     # section = line.get('sections')
     # for key in line.get('sections'):
     # section.get
     #     print(key)
-    return cross_finder(line, sphere)
+
+
+
+
+    # return cross_finder(line, sphere)
+
+
+
+
     # return print([line.get('sections').get('x')[3] if line.get('sections').get('x')[3] == True else line.get('sections').get('x')[2]])
 
-        # if line[i][1] >= sphere[i][0] and line[i][1] <= sphere[i][1]:
-        #     inside.append(line[i][1])
-        # else:
-        #     outside.append(line[i][1])
+    # if line[i][1] >= sphere[i][0] and line[i][1] <= sphere[i][1]:
+    #     inside.append(line[i][1])
+    # else:
+    #     outside.append(line[i][1])
 
-
-        # elif:
-        # elif line[i][0] > sphere[i][1]:
-        #     print('damn')
-        # elif line[0] >= sphere[0] and line[0] <= sphere[1]:
-        #     print(f'blyad {line[0]} > {sphere[0]} < {sphere[1]}')
-        #     if line[1] > sphere[1]:
-        #         print(f'{sphere[1]}')
-        #         print(f'{line[1] > sphere[1]}')
-        #         print(f'{line[1] < sphere[1]}')
-        # elif line[0] >= sphere[0] and line[0] > sphere[1]:
-        #     print('zhopa')
-        # else:
-        #     print('bam')
-
+    # elif:
+    # elif line[i][0] > sphere[i][1]:
+    #     print('damn')
+    # elif line[0] >= sphere[0] and line[0] <= sphere[1]:
+    #     print(f'blyad {line[0]} > {sphere[0]} < {sphere[1]}')
+    #     if line[1] > sphere[1]:
+    #         print(f'{sphere[1]}')
+    #         print(f'{line[1] > sphere[1]}')
+    #         print(f'{line[1] < sphere[1]}')
+    # elif line[0] >= sphere[0] and line[0] > sphere[1]:
+    #     print('zhopa')
+    # else:
+    #     print('bam')
 
     # print(inside, outside)
     # return cross_finder(inside, sphere)
