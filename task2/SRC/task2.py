@@ -4,8 +4,10 @@ import json
 def file_loader(name):
     """Загружает json файл с данынми"""
     with open(name) as f:
-        file = json.load(f)
-
+        try:
+            file = json.load(f)
+        except:
+            file = f.readlines()
     return file
 
 
@@ -37,6 +39,7 @@ def sphere_theme():
 
 
 def comparison(line, sphere):
+    """Функция находящая точки внутри сферы"""
     x = 0
     section = line.get('sections')
     for key in section.keys():
@@ -51,6 +54,10 @@ def comparison(line, sphere):
 
 
 def cross_finder(sections, sphere):
+    """
+    Функция производящая финальную оценку по точкам
+    линии проходящим через или входящим в сферу
+    """
     x = 0
     sections = sections.get('sections')
     crosspoints = dict()
@@ -81,4 +88,3 @@ def cross_finder(sections, sphere):
 
 if __name__ == '__main__':
     sphere_theme()
-    # file_loader('test.json')
