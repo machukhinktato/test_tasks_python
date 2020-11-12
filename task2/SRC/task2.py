@@ -112,11 +112,11 @@ def cross_finder(sections, sphere):
     crosspoints = dict()
     for key in sections.keys():
         if sections[key][2] == True:
-            crosspoints[key] = sphere[0][0]
+            crosspoints[key + '_2'] = sphere[0][1]
         if sections[key][3] == True:
-            crosspoints[key] = sphere[0][1]
+            crosspoints[key + '_1'] = sphere[0][0]
         # sections[key][2] = 'banana'
-    return crosspoints
+    return sections, crosspoints
 
 
 if __name__ == '__main__':
