@@ -2,17 +2,19 @@ import json
 
 
 def file_loader(name):
+    """Загружает json файл с данынми"""
     with open(name) as f:
-        a = json.load(f)
+        file = json.load(f)
 
-    return print(a)
+    return file
+
 
 def sphere_theme():
-    task_dict = {
-        'sphere': {'center': [0, 0, 0], 'radius': 10.67, },
-        'line': [[1, 0.5, 15], [43, -14.6, 0.04]]
-        # 'line': [[0, 0, 0], [0, 0, 0]]
-    }
+    """
+    Основная функция, принимает исходные значения, сортирует данные
+    и отдаёт их на обработку профильным функциям
+    """
+    task_dict = file_loader(input('Enter the file name, to start program: '))
     sphere_coords, line_coords = [], []
     for i in range(3):
         sphere_coords.append((
@@ -21,7 +23,6 @@ def sphere_theme():
             (((task_dict.get('sphere').get('center')[i])) +
              (task_dict.get('sphere').get('radius'))))
         )
-    for i in range(3):
         line_coords.append((
             [task_dict.get('line')[0][i], task_dict.get('line')[1][i]]
         ))
@@ -79,5 +80,5 @@ def cross_finder(sections, sphere):
 
 
 if __name__ == '__main__':
-    # sphere_theme()
-    file_loader('test.json')
+    sphere_theme()
+    # file_loader('test.json')
