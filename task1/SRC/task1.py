@@ -6,8 +6,7 @@ def num_converter(num, dest_base):
         'oct': oct(num).replace('0o', ''),
         'ter': ter(num),
         'bin': bin(num).replace('0b', ''),
-        'int': int(num),
-        # 'cats': 'meow'.replace('o', 'o' * num),
+        'dec': int(num),
         'cats': '(^o_o^)~ ' * (num),
     }
 
@@ -35,7 +34,6 @@ def ter(num):
     return int(a)
 
 
-# def main(nb, base_src, base_dst):
 def main():
     """
     Основная функция вызова программы, принимает число, базовую и конечную
@@ -50,7 +48,6 @@ def main():
         'oct': 8,
         'ter': 3,
         'bin': 2,
-        # 'cats': 'o(^_^)o~ ',
     }
     if 'cats' in base_src:
         try:
@@ -75,5 +72,4 @@ def usage():
 
 
 if __name__ == '__main__':
-    # main('111011101110', 'bin', 'hex')
     main()
