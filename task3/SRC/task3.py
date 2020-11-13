@@ -7,6 +7,7 @@ import re
 
 
 def file_loader(data):
+    """ функция загружает данные из файла"""
     with open(data, 'r', encoding='utf8') as f:
         file = f.readlines()
 
@@ -14,6 +15,7 @@ def file_loader(data):
 
 
 def save_data(data=None):
+    """функция сохраняющая данные в csv формате"""
     with open('data.csv', 'w+', encoding='utf8', newline='') as file:
         writer = csv.writer(file, delimiter=';')
         writer.writerow(
@@ -28,6 +30,7 @@ def save_data(data=None):
 
 
 def log_scraper(log, start, end):
+    """Основаня функция обработчик"""
     fill_attempts = 0
     fill_err_percent = 0.0
     fill_fails = 0
