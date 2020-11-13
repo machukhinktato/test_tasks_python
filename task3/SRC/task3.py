@@ -41,8 +41,8 @@ def log_scraper():
     #     data[i][0].replace('\n', '')
     #     print(data[i][0])
     # print([data[i] for i in range(len(data))][0])
-    return print(log)
-    # return print(data[3][0].split('.')[0])
+    # return print(log)
+    return print(data[3][0].split('.')[1].split('-')[1])
 
 
 if __name__ == '__main__':
