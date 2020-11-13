@@ -45,34 +45,26 @@ def log_scraper(log, start, end):
         for i in range(len(log_data)):
             if elem[-i].split('.')[0] > end:
                 log_data.pop([-i])
-
-            # log_data.append(data[i + 2][0].split('.')[0])
-    #                             if 'успех' in data[i + 2][0].split('.')[1].split('-')[1]:
-    #                                 success.append(
-    #                                     data[i + 2][0].split('.')[1].split('-')[1].
-    #                                         replace('\n', ''))
-    #                             else:
-    #                                 fail.append(
-    #                                     data[i + 2][0].split('.')[1].split('-')[1].
-    #                                         replace('\n', ''))
-
-
-    # err_percentage = len(fail) * 100 / (len(success) + len(fail))
-    # for i in range(len(log_data)):
-    #     if start < log_data[i]:
-    #         # log_data[i].pop()
-    #         log_data.pop(i)
+    for i in range(len(log_data)):
+        if 'успех' in log_data[i][0].split('.')[1].split('-')[1]:
+            success.append(
+                log_data[i][0].split('.')[1].split('-')[1].
+                    replace('\n', ''))
+        else:
+            fail.append(
+                log_data[i][0].split('.')[1].split('-')[1].
+                    replace('\n', ''))
 
 
-# barrel_data[w_vol] = re.match('[0-9]+', data[0][0])
-# for i in range(len(data)):
-#     data[i][0].replace('\n', '')
-#     print(data[i][0])
-# print([data[i] for i in range(len(data))][0])
-# return print(start, log_data, end)
-    return print(log_data)
+    err_percentage = len(fail) * 100 / (len(success) + len(fail))
+
+
+
+#     return print(start, log_data, end)
+#     return print(success, fail)
+    # return print(log_data)
 # return print(data[3][0].split('.')[1].split('-')[1])
-
+    return print(err_percentage)
 
 if __name__ == '__main__':
     log_scraper(log, start, end)
