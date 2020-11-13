@@ -1,5 +1,5 @@
 import csv
-
+import re
 
 def file_loader(data):
     with open(data, 'r', encoding='utf8') as f:
@@ -25,12 +25,16 @@ def log_scraper():
     data = file_loader('log.log')
     data = [i.split(',') for i in data]
     save_data(data)
+    # barrel_data = dict()
+    barrel_max_cap = re.findall('[0-9]+', data[0][0]).pop()
+    barrel_cap_at_start = re.findall('[0-9]+', data[1][0]).pop()
+    # barrel_data[w_vol] = re.match('[0-9]+', data[0][0])
     # for i in range(len(data)):
     #     data[i][0].replace('\n', '')
     #     print(data[i][0])
-    return data
-
+    # print([data[i] for i in range(len(data))][0])
+    return print(data[3][0])
 
 if __name__ == '__main__':
-    # log_scraper()
-    save_data()
+    log_scraper()
+    # save_data()
