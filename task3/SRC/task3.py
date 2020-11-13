@@ -1,5 +1,6 @@
 import csv
 
+
 def file_loader(data):
     with open(data, 'r', encoding='utf8') as f:
         file = f.readlines()
@@ -10,8 +11,15 @@ def file_loader(data):
 def save_data(data=None):
     with open('data.csv', 'w+', encoding='utf8', newline='') as file:
         writer = csv.writer(file, delimiter=';')
-        writer.writerow(['attempts to fill', 'err percent', 'fill success(liters)', 'fill fails(liters)' ])
+        writer.writerow(
+            ['attempts to fill', 'err percent', 'fill success(ltr)',
+             'fill fails(ltr)', 'attempts to withdrawal', 'err percent',
+             'withdrawal success(ltr)', 'withdrawal fails(ltr)',
+             'water volume in barrel at the start(ltr)',
+             'water volume in barrel at the end(ltr)'])
+
     return 'done'
+
 
 def log_scraper():
     data = file_loader('log.log')
