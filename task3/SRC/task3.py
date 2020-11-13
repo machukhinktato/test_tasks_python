@@ -1,3 +1,5 @@
+import csv
+
 def file_loader(data):
     with open(data, 'r', encoding='utf8') as f:
         file = f.readlines()
@@ -5,11 +7,22 @@ def file_loader(data):
         return file
 
 
+def save_data(data=None):
+    with open('data.csv', 'w+', encoding='utf8', newline='') as file:
+        writer = csv.writer(file, delimiter=';')
+        writer.writerow(['attempts to fill', 'err percent', 'fill success(liters)', 'fill fails(liters)' ])
+    return 'done'
+
 def log_scraper():
     data = file_loader('log.log')
     data = [i.split(',') for i in data]
-    return print(data[0][0])
+    save_data(data)
+    # for i in range(len(data)):
+    #     data[i][0].replace('\n', '')
+    #     print(data[i][0])
+    return data
 
 
 if __name__ == '__main__':
-    log_scraper()
+    # log_scraper()
+    save_data()
