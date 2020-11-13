@@ -1,7 +1,7 @@
 import json
 
 
-def file_loader(name='ok.txt'):
+def file_loader(name):
     """Загружает json файл с данынми"""
     with open(name) as f:
         try:
