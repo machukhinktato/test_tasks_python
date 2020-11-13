@@ -29,10 +29,13 @@ def log_scraper():
     # barrel_data = dict()
     barrel_max_cap = re.findall('[0-9]+', data[0][0]).pop()
     barrel_cap_at_start = re.findall('[0-9]+', data[1][0]).pop()
-    log = list()
+    log_data, log_action = [], []
     for i in range(len(data)):
         try:
-            log.append(data[i + 2][0].split('.')[0])
+            log_data.append(data[i + 2][0].split('.')[0])
+            log_action.append(
+                data[i + 2][0].split('.')[1].split('-')[1].
+                    replace('\n', ''))
         except:
             continue
 
@@ -41,8 +44,8 @@ def log_scraper():
     #     data[i][0].replace('\n', '')
     #     print(data[i][0])
     # print([data[i] for i in range(len(data))][0])
-    # return print(log)
-    return print(data[3][0].split('.')[1].split('-')[1])
+    return print(log_data, log_action)
+    # return print(data[3][0].split('.')[1].split('-')[1])
 
 
 if __name__ == '__main__':
