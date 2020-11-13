@@ -3,7 +3,7 @@ import re
 
 log = 'log.log'
 start = '2020-01-01Т12:51:31'
-end = '2020-01-01Т12:51:34'
+end = '2020-01-01Т12:51:35'
 
 
 def file_loader(data):
@@ -42,57 +42,51 @@ def log_scraper(log, start, end):
     log_data, success, fail = [], [], []
     for i in range(len(data)):
         try:
-            if start > data[i + 2][0].split('.')[0]:
+            if start <= data[i + 2][0].split('.')[0]:
                 log_data.append(data[i + 2])
         except:
             continue
-
-    for elem in log_data:
-        for i in range(len(log_data)):
-            if elem[-i].split('.')[0] > end:
-                log_data.pop([-i])
+    print(log_data)
+    for i in range(len(log_data)):
+        for elem in log_data:
+            # print(elem[i].split('.')[0])
+            try:
+                if elem[i].split('.')[0] > end:
+                    # print(log_data[-i])
+                    # print(elem[-i].split('.'))
+                    try:
+                        log_data.pop(i)
+                    except:
+                        continue
+            except:
+                continue
+    # print(log_data)
     for elem in range(len(log_data)):
         if 'top up' in log_data[elem][0]:
             fill_attempts += 1
-            if 'успех' in log_data[elem][0].split('.')[1].split('-')[1]:
+            if 'top up' and 'успех' in log_data[elem][0].split('.')[1].split('-')[1]:
                 success.append(
-                    log_data[i][0].split('.')[1].split('-')[1].
+                    log_data[elem][0].split('.')[1].split('-')[1].
                         replace('\n', ''))
             else:
                 fill_fails += 1
         elif 'scoop' in log_data[elem][0]:
             if 'успех' in log_data[elem][0].split('.')[1].split('-')[1]:
                 withdrawal_att += 1
-                fail.append(
-                                log_data[i][0].split('.')[1].split('-')[1].
-                                    replace('\n', ''))
+
             else:
                 withdrawal_fails += 1
+                fail.append(
+                    log_data[elem][0].split('.')[1].split('-')[1].
+                                    replace('\n', ''))
     try:
         fill_err_percent = fill_fails * 100 / fill_attempts
         withdrawal_err_pct = withdrawal_fails * 100 / fill_attempts
     except:
         ''
-    # for i in range(len(log_data)):
-    #     if 'успех' in log_data[i][0].split('.')[1].split('-')[1]:
-    #         success.append(
-    #             log_data[i][0].split('.')[1].split('-')[1].
-    #                 replace('\n', ''))
-    #     else:
-    #         fail.append(
-    #             log_data[i][0].split('.')[1].split('-')[1].
-    #                 replace('\n', ''))
 
-
-    # err_percentage = len(fail) * 100 / (len(success) + len(fail))
-
-
-
-#     return print(start, log_data, end)
-#     return print(success, fail)
-    # return print(log_data)
-# return print(data[3][0].split('.')[1].split('-')[1])
-    return print(success, fail)
+    return print(f'{success} omg {fail}')
+    # return ''
 
 if __name__ == '__main__':
     log_scraper(log, start, end)
