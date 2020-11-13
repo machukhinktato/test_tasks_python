@@ -1,9 +1,9 @@
 import csv
 import re
 
-log = 'log.log'
-start = '2020-01-01Т12:51:31'
-end = '2020-01-01Т12:51:35'
+# log = 'log.log'
+# start = '2020-01-01Т12:51:31'
+# end = '2020-01-01Т12:51:35'
 
 
 def file_loader(data):
@@ -22,6 +22,7 @@ def save_data(data=None):
              'withdrawal success(ltr)', 'withdrawal fails(ltr)',
              'water capacity in barrel at the start(ltr)',
              'water capacity in barrel at the end(ltr)'])
+        writer.writerow(data)
 
     return 'done'
 
@@ -42,7 +43,6 @@ def log_scraper(log, start, end):
     print(data)
 
     save_data(data)
-    barrel_max_cap = re.findall('[0-9]+', data[0][0]).pop()
     barrel_cap_at_start = int(re.findall('[0-9]+', data[1][0]).pop())
 
     log_data = []
@@ -56,7 +56,7 @@ def log_scraper(log, start, end):
                 log_data.append(data[i + 2])
         except:
             continue
-    print(log_data)
+
     for i in range(len(log_data)):
         for elem in log_data:
             try:
@@ -121,4 +121,3 @@ def log_scraper(log, start, end):
 
 if __name__ == '__main__':
     log_scraper(log, start, end)
-    # save_data()
