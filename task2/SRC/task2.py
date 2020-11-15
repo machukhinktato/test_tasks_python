@@ -1,5 +1,5 @@
 import json
-
+import os
 
 def file_loader(name):
     """Загружает json файл с данынми"""
@@ -12,12 +12,13 @@ def file_loader(name):
     return file
 
 
-def sphere_theme():
+def main(filename):
     """
     Основная функция, принимает исходные значения, сортирует данные
     и отдаёт их на обработку профильным функциям
     """
-    task_dict = file_loader(input('Enter the file name, to start program: '))
+    # task_dict = file_loader(input('Enter the file name, to start program: '))
+    task_dict = file_loader(filename)
     sphere_coords, line_coords = [], []
     for i in range(3):
         sphere_coords.append((
@@ -94,5 +95,4 @@ def cross_finder(sections, sphere):
 
 
 if __name__ == '__main__':
-    sphere_theme()
-    # file_loader()
+    main('test.txt')
