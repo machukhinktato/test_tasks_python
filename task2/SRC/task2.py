@@ -1,5 +1,4 @@
 import json
-import os
 
 def file_loader(name):
     """Загружает json файл с данынми"""
