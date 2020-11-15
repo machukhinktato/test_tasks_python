@@ -1,9 +1,18 @@
 import csv
 import re
+import sys
 
-log = 'log.log'
+# log = 'log.log'
+log = ''
 start = '2020-01-01Т12:51:31'
 end = '2020-01-01Т12:51:35'
+usage = ['Для корректной работы программы в функцию main()\n'
+         'необоходимо передавать три параметра, первый - файл,\n'
+         'который необходимо проанализировать. Вторым и третьим файлами\n'
+         'передается время в фомрате - "2020-01-01Т12:51:31".\n'
+         'Второй элемент - момент с которого начнётся анализ,\n'
+         'третий эдемент - до какого момента будет проанализирована\n'
+         'инфомрация из  файла.']
 
 
 def file_loader(data):
@@ -18,18 +27,21 @@ def save_data(data=None):
     """функция сохраняющая данные в csv формате"""
     with open('data.csv', 'w+', encoding='utf8', newline='') as file:
         writer = csv.writer(file, delimiter=';')
-        writer.writerow(
-            ['attempts to fill', 'err percent', 'fill success(ltr)',
-             'fill fails(ltr)', 'attempts to withdrawal', 'err percent',
-             'withdrawal success(ltr)', 'withdrawal fails(ltr)',
-             'water capacity in barrel at the start(ltr)',
-             'water capacity in barrel at the end(ltr)'])
-        writer.writerow(data)
+        if data == None:
+            writer.writerow(usage)
+        else:
+            writer.writerow(
+                ['attempts to fill', 'err percent', 'fill success(ltr)',
+                 'fill fails(ltr)', 'attempts to withdrawal', 'err percent',
+                 'withdrawal success(ltr)', 'withdrawal fails(ltr)',
+                 'water capacity in barrel at the start(ltr)',
+                 'water capacity in barrel at the end(ltr)'])
+            writer.writerow(data)
 
     return 'done'
 
 
-def log_scraper(log, start, end):
+def main(log, start, end):
     """Основаня функция обработчик"""
     fill_attempts = 0
     fill_err_percent = 0.0
@@ -41,9 +53,13 @@ def log_scraper(log, start, end):
     withdrawal_fails = 0
     withdrawal_fails_ltr = 0
     withdrawal_success_ltr = 0
-    data = file_loader(log)
-    data = [i.split(',') for i in data]
-
+    try:
+        data = file_loader(log)
+        data = [i.split(',') for i in data]
+    except:
+        save_data()
+        sys.stdout.write(usage[0])
+        sys.exit(-1)
     save_data(data)
     barrel_cap_at_start = int(re.findall('[0-9]+', data[1][0]).pop())
 
@@ -122,4 +138,4 @@ def log_scraper(log, start, end):
 
 
 if __name__ == '__main__':
-    log_scraper(log, start, end)
+    main(log, start, end)
