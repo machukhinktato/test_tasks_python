@@ -1,18 +1,12 @@
+from datetime import datetime
 import csv
 import re
 import sys
 
-# log = 'log.log'
-log = ''
+log = 'log.log'
+# log = ''
 start = '2020-01-01Т12:51:31'
 end = '2020-01-01Т12:51:35'
-usage = ['Для корректной работы программы в функцию main()\n'
-         'необоходимо передавать три параметра, первый - файл,\n'
-         'который необходимо проанализировать. Вторым и третьим файлами\n'
-         'передается время в фомрате - "2020-01-01Т12:51:31".\n'
-         'Второй элемент - момент с которого начнётся анализ,\n'
-         'третий эдемент - до какого момента будет проанализирована\n'
-         'инфомрация из  файла.']
 
 
 def file_loader(data):
@@ -23,26 +17,29 @@ def file_loader(data):
         return file
 
 
-def save_data(data=None):
+def save_data(data):
     """функция сохраняющая данные в csv формате"""
     with open('data.csv', 'w+', encoding='utf8', newline='') as file:
         writer = csv.writer(file, delimiter=';')
-        if data == None:
-            writer.writerow(usage)
-        else:
-            writer.writerow(
-                ['attempts to fill', 'err percent', 'fill success(ltr)',
-                 'fill fails(ltr)', 'attempts to withdrawal', 'err percent',
-                 'withdrawal success(ltr)', 'withdrawal fails(ltr)',
-                 'water capacity in barrel at the start(ltr)',
-                 'water capacity in barrel at the end(ltr)'])
-            writer.writerow(data)
+        writer.writerow(
+            ['attempts to fill', 'err percent', 'fill success(ltr)',
+             'fill fails(ltr)', 'attempts to withdrawal', 'err percent',
+             'withdrawal success(ltr)', 'withdrawal fails(ltr)',
+             'water capacity in barrel at the start(ltr)',
+             'water capacity in barrel at the end(ltr)'])
+        writer.writerow(data)
 
     return 'done'
 
 
 def main(log, start, end):
     """Основаня функция обработчик"""
+    try:
+        start = datetime.strptime(start, "%Y-%m-%dТ%H:%M:%S")
+        end = datetime.strptime(end, "%Y-%m-%dТ%H:%M:%S")
+        print(start, end)
+    except:
+        usage()
     fill_attempts = 0
     fill_err_percent = 0.0
     fill_fails = 0
@@ -57,9 +54,7 @@ def main(log, start, end):
         data = file_loader(log)
         data = [i.split(',') for i in data]
     except:
-        save_data()
-        sys.stdout.write(usage[0])
-        sys.exit(-1)
+        usage()
     save_data(data)
     barrel_cap_at_start = int(re.findall('[0-9]+', data[1][0]).pop())
 
@@ -68,23 +63,26 @@ def main(log, start, end):
     fill_fail = []
     withdrawal_success = []
     withdrawal_fail = []
-    for i in range(len(data)):
-        try:
-            if start <= data[i + 2][0].split('.')[0]:
-                log_data.append(data[i + 2])
-        except:
-            continue
-
-    for i in range(len(log_data)):
-        for elem in log_data:
+    try:
+        for i in range(len(data)):
             try:
-                if elem[i].split('.')[0] > end:
-                    try:
-                        log_data.pop(i)
-                    except:
-                        continue
+                if start <= data[i + 2][0].split('.')[0]:
+                    log_data.append(data[i + 2])
             except:
                 continue
+
+        for i in range(len(log_data)):
+            for elem in log_data:
+                try:
+                    if elem[i].split('.')[0] > end:
+                        try:
+                            log_data.pop(i)
+                        except:
+                            continue
+                except:
+                    continue
+    except:
+        usage()
 
     for elem in range(len(log_data)):
         if 'top up' in log_data[elem][0]:
@@ -134,7 +132,21 @@ def main(log, start, end):
 
     save_data(log_analyze)
 
-    return print('analyze complete')
+    return sys.stdout.write('analyze complete')
+
+
+def usage():
+    usage = ['Для корректной работы программы в функцию main()\n'
+             'необоходимо передавать три параметра, первый - файл,\n'
+             'который необходимо проанализировать. Вторым и третьим файлами\n'
+             'передается время в фомрате - "2020-01-01Т12:51:31".\n'
+             'Второй элемент - момент с которого начнётся анализ,\n'
+             'третий эдемент - до какого момента будет проанализирована\n'
+             'инфомрация из  файла.']
+    sys.stdout = open('data.csv', 'w', encoding='utf8')
+    print(usage[0])
+    sys.stdout.close()
+    return sys.exit(-1)
 
 
 if __name__ == '__main__':
