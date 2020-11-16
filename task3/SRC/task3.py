@@ -3,7 +3,9 @@ import csv
 import re
 import sys
 
-# log = 'log.log'
+log = 'log.log'
+
+
 # log = ''
 # start = '2020-01-01Т12:51:31'
 # end = '2020-01-01Т12:51:35'
@@ -32,17 +34,12 @@ def save_data(data):
     return 'done'
 
 
-def main(log, start, end):
+def main(log, start=None, end=None):
     """Основаня функция обработчик"""
     if log in globals() == False:
         usage()
     dt = datetime.strptime
     ptrn = "%Y-%m-%dТ%H:%M:%S"
-    try:
-        start = dt(start, ptrn)
-        end = dt(end, ptrn)
-    except:
-        usage()
     fill_attempts = 0
     fill_err_percent = 0.0
     fill_fails = 0
@@ -56,6 +53,18 @@ def main(log, start, end):
     try:
         data = file_loader(log)
         data = [i.split(',') for i in data]
+    except:
+        usage()
+
+    try:
+        if start != None:
+            start = dt(start, ptrn)
+        else:
+            start = dt(data[2][0].split('.')[0], ptrn)
+        if end != None:
+            end = dt(end, ptrn)
+        else:
+            end = dt(data[-1][0].split('.')[0], ptrn)
     except:
         usage()
 
@@ -140,12 +149,11 @@ def main(log, start, end):
 
 def usage():
     usage = ['Для корректной работы программы в функцию main()\n'
-             'необоходимо передавать три параметра, первый - файл,\n'
-             'который необходимо проанализировать. Вторым и третьим файлами\n'
-             'передается время в фомрате - "2020-01-01Т12:51:31".\n'
-             'Второй элемент - момент с которого начнётся анализ,\n'
-             'третий эдемент - до какого момента будет проанализирована\n'
-             'инфомрация из  файла.']
+             'необходимо передать один обязательный аргумент, имя лог\n'
+             'файла(log). Для конкретизации анализа можно добавить\n'
+             'время выборки. За это отвечают аргументы start и end.\n'
+             'Время передается в формате: "2020-01-01Т12:51:31"\n']
+
     sys.stdout = open('data.csv', 'w', encoding='utf8')
     print(usage[0])
     sys.stdout.close()
@@ -153,4 +161,4 @@ def usage():
 
 
 if __name__ == '__main__':
-    main(log, start, end)
+    main(log)
