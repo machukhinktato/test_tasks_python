@@ -15,4 +15,4 @@ def main(str1=None, str2=None):
 
 
 if __name__ == '__main__':
-    main()
+    main('aaaa', '*')
