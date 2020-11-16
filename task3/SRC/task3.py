@@ -3,7 +3,7 @@ import csv
 import re
 import sys
 
-log = 'log.log'
+LOG_FILE = 'log.log'
 
 
 # log = ''
@@ -36,8 +36,6 @@ def save_data(data):
 
 def main(log, start=None, end=None):
     """Основаня функция обработчик"""
-    if log in globals() == False:
-        usage()
     dt = datetime.strptime
     ptrn = "%Y-%m-%dТ%H:%M:%S"
     fill_attempts = 0
@@ -55,7 +53,6 @@ def main(log, start=None, end=None):
         data = [i.split(',') for i in data]
     except:
         usage()
-
     try:
         if start != None:
             start = dt(start, ptrn)
@@ -161,4 +158,4 @@ def usage():
 
 
 if __name__ == '__main__':
-    main(log)
+    main(LOG_FILE)
