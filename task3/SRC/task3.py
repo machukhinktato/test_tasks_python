@@ -4,9 +4,9 @@ import re
 import sys
 
 # log = 'log.log'
-# # log = ''
-start = '2020-01-01Т12:51:31'
-end = '2020-01-01Т12:51:35'
+# log = ''
+# start = '2020-01-01Т12:51:31'
+# end = '2020-01-01Т12:51:35'
 
 
 def file_loader(data):
@@ -65,8 +65,7 @@ def main(log, start, end):
     fill_fail = []
     withdrawal_success = []
     withdrawal_fail = []
-    print(start, data[2][0].split('.')[0], end)
-    print(dt(data[2][0].split('.')[0], "%Y-%m-%dТ%H:%M:%S") == dt('2020-01-01 12:51:32','%Y-%m-%d %H:%M:%S'))
+
     try:
         for i in range(len(data)):
             try:

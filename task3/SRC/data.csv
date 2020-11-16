@@ -1,2 +1,2 @@
 attempts to fill;err percent;fill success(ltr);fill fails(ltr);attempts to withdrawal;err percent;withdrawal success(ltr);withdrawal fails(ltr);water capacity in barrel at the start(ltr);water capacity in barrel at the end(ltr)
-1;0.0;10;0;0;0.0;0;50;32;42
+1;0.0;10;0;1;100.0;0;50;32;42
