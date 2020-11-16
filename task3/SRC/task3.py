@@ -34,8 +34,12 @@ def save_data(data):
     return 'done'
 
 
-def main(log, start=None, end=None):
+def main(log=None, start=None, end=None):
     """Основаня функция обработчик"""
+    if log == None:
+        print('Аргументы не переданы, приложение остановлено,\n'
+              'Более подробная инфомрация в "data.csv"\n')
+        usage()
     dt = datetime.strptime
     ptrn = "%Y-%m-%dТ%H:%M:%S"
     fill_attempts = 0
@@ -141,7 +145,7 @@ def main(log, start=None, end=None):
 
     save_data(log_analyze)
 
-    return sys.stdout.write('analyze complete')
+    return sys.stdout.write('analyze complete\n')
 
 
 def usage():
@@ -158,4 +162,4 @@ def usage():
 
 
 if __name__ == '__main__':
-    main(LOG_FILE)
+    main()
