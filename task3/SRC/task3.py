@@ -3,8 +3,8 @@ import csv
 import re
 import sys
 
-log = 'log.log'
-# log = ''
+# log = 'log.log'
+# # log = ''
 start = '2020-01-01Т12:51:31'
 end = '2020-01-01Т12:51:35'
 
@@ -34,10 +34,13 @@ def save_data(data):
 
 def main(log, start, end):
     """Основаня функция обработчик"""
+    if log in globals() == False:
+        usage()
+    dt = datetime.strptime
+    ptrn = "%Y-%m-%dТ%H:%M:%S"
     try:
-        start = datetime.strptime(start, "%Y-%m-%dТ%H:%M:%S")
-        end = datetime.strptime(end, "%Y-%m-%dТ%H:%M:%S")
-        print(start, end)
+        start = dt(start, ptrn)
+        end = dt(end, ptrn)
     except:
         usage()
     fill_attempts = 0
@@ -55,18 +58,19 @@ def main(log, start, end):
         data = [i.split(',') for i in data]
     except:
         usage()
-    save_data(data)
-    barrel_cap_at_start = int(re.findall('[0-9]+', data[1][0]).pop())
 
+    barrel_cap_at_start = int(re.findall('[0-9]+', data[1][0]).pop())
     log_data = []
     fill_success = []
     fill_fail = []
     withdrawal_success = []
     withdrawal_fail = []
+    print(start, data[2][0].split('.')[0], end)
+    print(dt(data[2][0].split('.')[0], "%Y-%m-%dТ%H:%M:%S") == dt('2020-01-01 12:51:32','%Y-%m-%d %H:%M:%S'))
     try:
         for i in range(len(data)):
             try:
-                if start <= data[i + 2][0].split('.')[0]:
+                if start <= dt(data[i + 2][0].split('.')[0], ptrn):
                     log_data.append(data[i + 2])
             except:
                 continue
@@ -74,7 +78,7 @@ def main(log, start, end):
         for i in range(len(log_data)):
             for elem in log_data:
                 try:
-                    if elem[i].split('.')[0] > end:
+                    if dt(elem[i].split('.')[0], ptrn) > end:
                         try:
                             log_data.pop(i)
                         except:
@@ -97,8 +101,8 @@ def main(log, start, end):
                     log_data[elem][0].split('.')[1].split('-')[1].
                         replace('\n', ''))
         elif 'scoop' in log_data[elem][0]:
+            withdrawal_att += 1
             if 'scoop' and 'успех' in log_data[elem][0].split('.')[1].split('-')[1]:
-                withdrawal_att += 1
                 withdrawal_success.append(
                     log_data[elem][0].split('.')[1].split('-')[1].
                         replace('\n', ''))
